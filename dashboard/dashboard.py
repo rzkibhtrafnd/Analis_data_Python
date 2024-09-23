@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load datasets
-base_path = os.getcwd()  # Dapatkan direktori kerja saat ini
+base_path = os.getcwd()
+st.write("Files in current directory:", os.listdir(base_path))
 
 order_items_dataset = os.path.join(base_path, 'order_items_dataset.csv')
 orders_dataset = os.path.join(base_path, 'orders_dataset.csv')
