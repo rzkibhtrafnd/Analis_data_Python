@@ -1,20 +1,26 @@
+import os
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load datasets
-order_items_dataset = 'order_items_dataset.csv'
-orders_dataset = 'orders_dataset.csv'
-product_category_name_translation = 'product_category_name_translation.csv'
-products_dataset = 'products_dataset.csv'
-sellers_dataset = 'sellers_dataset.csv'
+base_path = os.getcwd()  # Dapatkan direktori kerja saat ini
 
-order_item = pd.read_csv(order_items_dataset)
-orders = pd.read_csv(orders_dataset)
-product_category = pd.read_csv(product_category_name_translation)
-product = pd.read_csv(products_dataset)
-sellers = pd.read_csv(sellers_dataset)
+order_items_dataset = os.path.join(base_path, 'order_items_dataset.csv')
+orders_dataset = os.path.join(base_path, 'orders_dataset.csv')
+product_category_name_translation = os.path.join(base_path, 'product_category_name_translation.csv')
+products_dataset = os.path.join(base_path, 'products_dataset.csv')
+sellers_dataset = os.path.join(base_path, 'sellers_dataset.csv')
+
+try:
+    order_item = pd.read_csv(order_items_dataset)
+    orders = pd.read_csv(orders_dataset)
+    product_category = pd.read_csv(product_category_name_translation)
+    product = pd.read_csv(products_dataset)
+    sellers = pd.read_csv(sellers_dataset)
+except FileNotFoundError as e:
+    st.error(f"File not found: {e}")
 
 # Handle missing values
 orders = orders.fillna({

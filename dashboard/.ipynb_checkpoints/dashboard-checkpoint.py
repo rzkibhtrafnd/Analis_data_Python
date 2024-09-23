@@ -1,20 +1,26 @@
+import os
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load datasets
-order_items_dataset = 'order_items_dataset.csv'
-orders_dataset = 'orders_dataset.csv'
-product_category_name_translation = 'product_category_name_translation.csv'
-products_dataset = 'products_dataset.csv'
-sellers_dataset = 'sellers_dataset.csv'
+base_path = os.getcwd()  # Dapatkan direktori kerja saat ini
 
-order_item = pd.read_csv(order_items_dataset)
-orders = pd.read_csv(orders_dataset)
-product_category = pd.read_csv(product_category_name_translation)
-product = pd.read_csv(products_dataset)
-sellers = pd.read_csv(sellers_dataset)
+order_items_dataset = os.path.join(base_path, 'order_items_dataset.csv')
+orders_dataset = os.path.join(base_path, 'orders_dataset.csv')
+product_category_name_translation = os.path.join(base_path, 'product_category_name_translation.csv')
+products_dataset = os.path.join(base_path, 'products_dataset.csv')
+sellers_dataset = os.path.join(base_path, 'sellers_dataset.csv')
+
+try:
+    order_item = pd.read_csv(order_items_dataset)
+    orders = pd.read_csv(orders_dataset)
+    product_category = pd.read_csv(product_category_name_translation)
+    product = pd.read_csv(products_dataset)
+    sellers = pd.read_csv(sellers_dataset)
+except FileNotFoundError as e:
+    st.error(f"File not found: {e}")
 
 # Handle missing values
 orders = orders.fillna({
@@ -45,19 +51,19 @@ st.sidebar.header('Filters')
 
 # Year selection with an "All Years" option
 years = orders['order_purchase_timestamp'].dt.year.unique().tolist()
-all_years = st.sidebar.checkbox('Select All Years')  # Checkbox for selecting all years
+all_years = st.sidebar.checkbox('Select All Years')
 
 if all_years:
-    selected_years = years  # If checkbox is checked, select all years
+    selected_years = years
 else:
     selected_years = st.sidebar.multiselect('Select Year(s)', years, default=years[0])
 
 # Month selection with an "All Months" option
 months = orders['order_purchase_timestamp'].dt.month_name().unique().tolist()
-all_months = st.sidebar.checkbox('Select All Months')  # Checkbox for selecting all months
+all_months = st.sidebar.checkbox('Select All Months')
 
 if all_months:
-    selected_months = months  # If checkbox is checked, select all months
+    selected_months = months 
 else:
     selected_months = st.sidebar.multiselect('Select Month(s)', months, default=months[0])
 
@@ -138,7 +144,7 @@ top_categories.columns = ['product_category_name', 'total_orders']
 
 # Plot top product categories
 fig, ax = plt.subplots(figsize=(12, 8))
-sns.barplot(data=top_categories, x='product_category_name', y='total_orders', color='blue', ax=ax)  # Set color to blue
+sns.barplot(data=top_categories, x='product_category_name', y='total_orders', color='blue', ax=ax) 
 
 for p in ax.patches:
     ax.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()), ha='center', va='baseline', fontsize=12)
@@ -159,7 +165,7 @@ top_seller_cities.columns = ['seller_city', 'total_sellers']
 
 # Plot top seller cities
 fig, ax = plt.subplots(figsize=(12, 6))
-sns.barplot(data=top_seller_cities, x='seller_city', y='total_sellers', color='blue', ax=ax)  # Set color to blue
+sns.barplot(data=top_seller_cities, x='seller_city', y='total_sellers', color='blue', ax=ax) 
 
 for p in ax.patches:
     ax.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()), ha='center', va='baseline', fontsize=12)
