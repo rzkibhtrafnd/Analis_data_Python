@@ -6,13 +6,12 @@ import seaborn as sns
 
 # Load datasets
 base_path = os.getcwd()
-st.write("Files in current directory:", os.listdir(base_path))
 
-order_items_dataset = os.path.join(base_path, 'order_items_dataset.csv')
-orders_dataset = os.path.join(base_path, 'orders_dataset.csv')
-product_category_name_translation = os.path.join(base_path, 'product_category_name_translation.csv')
-products_dataset = os.path.join(base_path, 'products_dataset.csv')
-sellers_dataset = os.path.join(base_path, 'sellers_dataset.csv')
+order_items_dataset = os.path.join(base_path, 'data', 'order_items_dataset.csv')
+orders_dataset = os.path.join(base_path, 'data', 'orders_dataset.csv')
+product_category_name_translation = os.path.join(base_path, 'data', 'product_category_name_translation.csv')
+products_dataset = os.path.join(base_path, 'data', 'products_dataset.csv')
+sellers_dataset = os.path.join(base_path, 'data', 'sellers_dataset.csv')
 
 try:
     order_item = pd.read_csv(order_items_dataset)
