@@ -7,11 +7,11 @@ import seaborn as sns
 # Load datasets
 base_path = os.getcwd()
 
-order_items_dataset = os.path.join(base_path, 'data', 'order_items_dataset.csv')
-orders_dataset = os.path.join(base_path, 'data', 'orders_dataset.csv')
-product_category_name_translation = os.path.join(base_path, 'data', 'product_category_name_translation.csv')
-products_dataset = os.path.join(base_path, 'data', 'products_dataset.csv')
-sellers_dataset = os.path.join(base_path, 'data', 'sellers_dataset.csv')
+order_items_dataset = os.path.join(base_path, 'dashboard', 'order_items_dataset.csv')
+orders_dataset = os.path.join(base_path, 'dashboard', 'orders_dataset.csv')
+product_category_name_translation = os.path.join(base_path, 'dashboard', 'product_category_name_translation.csv')
+products_dataset = os.path.join(base_path, 'dashboard', 'products_dataset.csv')
+sellers_dataset = os.path.join(base_path, 'dashboard', 'sellers_dataset.csv')
 
 try:
     order_item = pd.read_csv(order_items_dataset)
